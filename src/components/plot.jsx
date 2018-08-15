@@ -18,9 +18,7 @@ class Plot extends Component {
 
         <select id="sma" className="form-control form-control-sm col-sm-3">
           {this.state.smas.map(sma => (
-            <option key={sma.id}>
-              {sma.sma} - {sma.title}
-            </option>
+            <option key={sma.id}>{sma.title}</option>
           ))}
         </select>
         <button onClick={this.handlePlot} className="btn btn-primary">
