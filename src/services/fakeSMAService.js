@@ -686,5 +686,5 @@ export function getSMAs() {
 }
 
 export function getSMA(id) {
-  return smas.find(s => s._id === id);
+  return smas.find(s => s.id === id);
 }

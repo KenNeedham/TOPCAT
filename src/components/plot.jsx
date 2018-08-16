@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { getSMAs } from "./../services/fakeSMAService";
+import Dropdown from "./common/dropdown";
 
 class Plot extends Component {
   state = {
     smas: getSMAs()
+  };
+
+  handleSelect = v => {
+    console.log("Select", v);
   };
 
   handlePlot = () => {
@@ -13,14 +18,11 @@ class Plot extends Component {
   render() {
     return (
       <div>
-        <h1>Plot</h1>
-        <label htmlFor="sma">SMA</label>
-
-        <select id="sma" className="form-control form-control-sm col-sm-3">
-          {this.state.smas.map(sma => (
-            <option key={sma.id}>{sma.title}</option>
-          ))}
-        </select>
+        <Dropdown
+          label="SMA"
+          data={this.state.smas}
+          onChange={this.handleSelect}
+        />
         <button onClick={this.handlePlot} className="btn btn-primary">
           Plot
         </button>
