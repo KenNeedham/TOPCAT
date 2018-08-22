@@ -22,11 +22,17 @@ class Logs extends Component {
     {
       key: "details",
       content: log => (
-        <button onClick={this.showModal} className="btn btn-link">
+        <button onClick={() => this.showModal(log)} className="btn btn-link">
           Details
         </button>
       )
     }
+  ];
+
+  logCols = [
+    { path: "equipno", label: "EquipNo" },
+    { path: "lcscode", label: "LCS" },
+    { path: "description", label: "Error" }
   ];
 
   async componentDidMount() {
@@ -46,9 +52,8 @@ class Logs extends Component {
     );
   };
 
-  showModal = e => {
-    console.log("show", e);
-    this.setState({ showDetails: true });
+  showModal = log => {
+    this.setState({ showDetails: true, log });
   };
 
   hideModal = () => {
@@ -56,11 +61,13 @@ class Logs extends Component {
     this.setState({ showDetails: false });
   };
 
-  getLog = sma2 => {
-    return this.state.logs.find(l => l.sma2 === sma2);
+  getLog = () => {
+    return this.state.log;
   };
 
   render() {
+    const { timestamp, sma2, subproc, logentries } = this.state.log;
+
     return (
       <div>
         <Table
@@ -72,11 +79,30 @@ class Logs extends Component {
         <ReactModal
           isOpen={this.state.showDetails}
           contentLabel="Log Details"
-          className="logDetails"
+          style={{
+            content: {
+              top: "10%",
+              left: "10%",
+              right: "10%",
+              bottom: "10%",
+              background: "#eee"
+            }
+          }}
         >
           <div className="modal-title">
-            Log details
-            <div className="modal-body">Blah blah blah</div>
+            <div className="modal-body">
+              {timestamp}
+              <br />
+              SMA: {sma2}
+              <br />
+              Dataset: {subproc}
+              <br />
+            </div>
+            <Table
+              columns={this.logCols}
+              data={logentries}
+              sortColumn="timestamp"
+            />
           </div>
           <button onClick={this.hideModal}>Close</button>
         </ReactModal>
