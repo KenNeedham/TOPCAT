@@ -4,8 +4,14 @@ import Dropdown from "./common/dropdown";
 
 class Plot extends Component {
   state = {
-    smas: getSMAs()
+    smas: []
   };
+
+  async componentDidMount() {
+    console.log("componentDidMount");
+    const smas = await getSMAs();
+    this.setState({ smas });
+  }
 
   handleSelect = v => {
     console.log("Select", v);
@@ -16,6 +22,8 @@ class Plot extends Component {
   };
 
   render() {
+    console.log("render");
+
     return (
       <div>
         <Dropdown

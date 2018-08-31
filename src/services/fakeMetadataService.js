@@ -15129,9 +15129,17 @@ const statuses = [
 ];
 
 export function getStatuses() {
-  return statuses;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(statuses);
+    }, 1000);
+  });
 }
 
 export function getStatus(id) {
-  return statuses.find(s => s.id === id);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(statuses.find(s => s.id === id));
+    }, 1000);
+  });
 }

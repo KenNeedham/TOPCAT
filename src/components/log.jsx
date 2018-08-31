@@ -62,11 +62,11 @@ class Logs extends Component {
   };
 
   getLog = () => {
-    return this.state.log;
+    return _.orderBy(this.state.log.logentries, "equipno", "asc");
   };
 
   render() {
-    const { timestamp, sma2, subproc, logentries } = this.state.log;
+    const { timestamp, sma2, subproc } = this.state.log;
 
     return (
       <div>
@@ -91,20 +91,26 @@ class Logs extends Component {
         >
           <div className="modal-title">
             <div className="modal-body">
-              {timestamp}
-              <br />
-              SMA: {sma2}
-              <br />
-              Dataset: {subproc}
-              <br />
+              <div className="container">
+                <div className="row">
+                  <div className="col-2">Date:</div>
+                  <div className="col-10">{timestamp}</div>
+                  <div className="col-2">SMA:</div>
+                  <div className="col-10">{sma2}</div>
+                  <div className="col-2">Dataset:</div>
+                  <div className="col-10">{subproc}</div>
+                </div>
+              </div>
             </div>
             <Table
               columns={this.logCols}
-              data={logentries}
-              sortColumn="timestamp"
+              data={this.getLog()}
+              sortColumn="equipno"
             />
           </div>
-          <button onClick={this.hideModal}>Close</button>
+          <button className="btn btn-primary btn-sm" onClick={this.hideModal}>
+            Close
+          </button>
         </ReactModal>
       </div>
     );

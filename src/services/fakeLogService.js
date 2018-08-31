@@ -125,9 +125,17 @@ const logs = [
 ];
 
 export function getLogs() {
-  return logs;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(logs);
+    }, 1000);
+  });
 }
 
 export function getLog(_id) {
-  return logs.find(s => s._id === _id);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(logs.find(s => s._id === _id));
+    }, 1000);
+  });
 }

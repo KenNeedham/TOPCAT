@@ -682,9 +682,19 @@ const smas = [
 ];
 
 export function getSMAs() {
-  return smas;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("getSMAs");
+      resolve(smas);
+    }, 1000);
+  });
 }
 
 export function getSMA(id) {
-  return smas.find(s => s.id === id);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("getSMA");
+      resolve(smas.find(s => s.id === id));
+    }, 1000);
+  });
 }
